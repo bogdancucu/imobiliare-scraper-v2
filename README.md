@@ -1,4 +1,6 @@
 ## Description
-Feature I build for a start-up which extracts household specification from imobiliare.ro real estate listings and dumps them in an S3 bucket.  
-Listing URLs are provided through a queue messaging system (SQS). Using a crontab, the script checks if there is any new message in the queue every 10 minutes, then proceeds to process it.  
-Deployed using Docker.
+Feature I developed for a start-up which scrapes (using Scrapy framework) household specification from imobiliare.ro real estate listings and saves the output in an S3 bucket.  
+URLs of listings to be scraped are fed to the app through a queue messaging system (SQS), according to test.json pattern. Using a crontab, sqs_main_queue.py is triggered every 10 minutes, checking if there is any new message in the queue. If yes, the URLs are extracted and passed onto the crawler (imobiliare_spider.py), which proceeds to scrape the desired data and dump it, as json, into an S3 bucket. If the processing fails, the message is sent to a dead letter queue for later retrieval. Another crontab triggers sqs_dead_letter_queue.py every 6 hours, checking if there is any message in the dead letter queue. Further processing of messages from the dead letter queue is yet to be implemented.   
+AWS Credentials and Resource paths are provisioned through environment variables.  
+Can be deployed using Docker.  
+Possible features to add in the future, based on client's requirements: data cleaning and normalization, logs, dead letter queue processing, additional data to scrape etc. 
