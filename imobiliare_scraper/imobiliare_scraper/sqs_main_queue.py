@@ -34,7 +34,6 @@ def main():
 
     # Process message
     if message:
-        receipt_handle = message[0].receipt_handle
         body_dict = json.loads(message[0].body)
         urls = body_dict['urls']
 

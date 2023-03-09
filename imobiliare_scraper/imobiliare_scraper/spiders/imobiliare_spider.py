@@ -37,7 +37,6 @@ class ImobiliareSpider(scrapy.Spider):
     def __init__(self, urls: list, *args, **kwargs):
         super(ImobiliareSpider, self).__init__(*args, **kwargs)
         self.urls = urls
-        self.scraped_response = list()
 
     def start_requests(self):
         for url in self.urls:
