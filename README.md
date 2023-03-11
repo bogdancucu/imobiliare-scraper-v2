@@ -1,6 +1,26 @@
 ## Description
-Feature I developed for a start-up which scrapes (using Scrapy framework) household specification from imobiliare.ro real estate listings and saves the output in an S3 bucket.  
-URLs of listings to be scraped are fed to the app through a queue messaging system (SQS), according to test.json pattern. Using a crontab, sqs_main_queue.py is triggered every 10 minutes, checking if there is any new message in the queue. If yes, the URLs are extracted and passed onto the crawler (imobiliare_spider.py), which proceeds to scrape the desired data and dump it, as json, into an S3 bucket. If the processing fails, the message is sent to a dead letter queue for later retrieval. Another crontab triggers sqs_dead_letter_queue.py every 6 hours, checking if there is any message in the dead letter queue. Further processing of messages from the dead letter queue is yet to be implemented.   
-AWS Credentials and Resource paths are provisioned through environment variables.  
-Can be deployed using Docker.  
-Possible features to add in the future, based on client's requirements: data cleaning and normalization, logs, dead letter queue processing, additional data to scrape etc. 
+End to end feature I developed for a start-up which automates the task of importing new listings from other real estate platform. The feature reduces the time needed to manually insert household specification and encourages real estate agencies to transition to the new platform.
+
+### Architecture
+![](/Users/cucubogdan/Dev/imobiliare-scraper-v2/png/project-diagram.png)
+
+### The logic
+1. URLs of listings to be scraped are fed to the app through a queue messaging system (SQS);
+2. every 10 minutes, a crontab triggers sqs_main_queue.py script; 
+3. the script checks if there are messages on the queue, then proceeds to retrieve them;
+4. retrieved urls are passed onto the crawler, which scrapes the desired data and dumps it into an S3 bucket;
+5. if any error occurs during the process, the message is sent to a dead letter queue, for later retrieval;
+6. another crontab triggers, every 6 hours, sqs_dead_letter_queue.py, which checks if there are any messages on the dead letter queue, then proceeds to notify AWS user about this, through an SNS Topic *(feature yet to be implemented)*;
+
+### Tools
+- Python (Scrapy framework)
+- AWS (S3, SQS, boto3)
+- Docker
+- Linux crontab
+
+### Further improvements
+*(depending on clients requirements)*
+- automating the insertion of output data from the S3 bucket to the database;
+- implementing the SNS Topic;
+- scraping additional data;
+- data cleaning and normalization; 
