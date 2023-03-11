@@ -2,7 +2,7 @@
 End to end feature I developed for a start-up which automates the task of importing new listings from other real estate platform. The feature reduces the time needed to manually insert household specification and encourages real estate agencies to transition to the new platform.
 
 ### Architecture
-![](/Users/cucubogdan/Dev/imobiliare-scraper-v2/png/project-diagram.png)
+![](https://raw.githubusercontent.com/bogdancucu/imobiliare-scraper-v2/main/png/project-diagram.png)
 
 ### The logic
 1. URLs of listings to be scraped are fed to the app through a queue messaging system (SQS);
