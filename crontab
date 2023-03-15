@@ -1,5 +1,5 @@
 # Run sqs_main_queue.py every minute - this is just for test. For prod use */10
-* * * * * /usr/local/bin/python3 /imobiliare_scraper/imobiliare_scraper/sqs_main_queue.py
+* * * * * PYTHONPATH=/imobiliare_scraper /usr/local/bin/python3 /imobiliare_scraper/sqs/main_queue.py >> /var/log/plm.log 2>&1
 
 # Run sqs_dead_letter_queue.py every 6 hours.
-* */6 * * * /usr/local/bin/python3 /imobiliare_scraper/imobiliare_scraper/sqs_dead_letter_queue.py
+* */6 * * * PYTHONPATH=/imobiliare_scraper /usr/local/bin/python3 /imobiliare_scraper/sqs/dead_letter_queue.py

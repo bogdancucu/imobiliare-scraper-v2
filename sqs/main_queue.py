@@ -2,7 +2,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 from scrapy.crawler import CrawlerProcess
-from spiders.imobiliare_spider import ImobiliareSpider
+from imobiliare_scraper.imobiliare_scraper.spiders.imobiliare_spider import ImobiliareSpider
 
 import json
 import os
@@ -61,12 +61,11 @@ class SQSMainQueue:
                     urls=self.urls
                 )
                 self.process.start()
+                self.message[0].delete()
             else:
                 print('Nothing on the queue')
         except ClientError as error:
             raise error
-        else:
-            self.message[0].delete()
 
 
 def main():

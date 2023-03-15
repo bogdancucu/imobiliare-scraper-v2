@@ -9,8 +9,11 @@ RUN apt-get -y install cron vim
 RUN pip3 install -r requirements.txt
 
 COPY crontab /etc/cron.d/crontab
-COPY imobiliare_scraper .
+COPY imobiliare_scraper ./imobiliare_scraper
+COPY sqs ./sqs
 COPY .env .
+
+ENV PYTHONPATH /imobiliare_scraper
 
 RUN chmod 0644 /etc/cron.d/crontab
 
