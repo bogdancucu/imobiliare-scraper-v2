@@ -13,7 +13,7 @@ load_dotenv()
 # Get AWS credentials from .env
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_REGION_NAME = os.getenv('AWS_REGION_NAME')
+AWS_REGION_NAME = os.getenv('REGION_NAME')
 S3_BUCKET_PATH = os.getenv('S3_BUCKET_PATH')
 LOG_GROUP = os.getenv('LOG_GROUP')
 LOG_STREAM_SPIDER = os.getenv('LOG_STREAM_SPIDER')
